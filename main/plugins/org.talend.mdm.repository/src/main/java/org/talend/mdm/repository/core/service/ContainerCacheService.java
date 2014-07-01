@@ -47,10 +47,6 @@ public class ContainerCacheService {
         containerMap.clear();
     }
 
-    public static void clearViewObjectCache() {
-        viewObjMap.clear();
-    }
-
     public static void putContainer(IRepositoryViewObject viewObj) {
         Item item = viewObj.getProperty().getItem();
         if (item instanceof ContainerItem) {

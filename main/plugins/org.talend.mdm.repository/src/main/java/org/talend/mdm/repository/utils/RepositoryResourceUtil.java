@@ -551,6 +551,11 @@ public class RepositoryResourceUtil {
         return new IRepositoryViewObject[] { rootViewObj };
     }
 
+    public static void resetViewObjectsCache() {
+        rootViewObj = null;
+        categoryViewObjects = null;
+    }
+
     public static IRepositoryViewObject getCategoryViewObject(IRepositoryNodeConfiguration conf) {
         Property prop = PropertiesFactory.eINSTANCE.createProperty();
         prop.setId(EcoreUtil.generateUUID());
