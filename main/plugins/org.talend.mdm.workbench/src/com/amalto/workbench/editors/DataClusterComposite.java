@@ -434,6 +434,12 @@ public class DataClusterComposite extends Composite implements IPagingListener {
                             .getTextContent());
                     continue;
                 }
+
+                if (!isMaster && result.getWsItemPK().getConceptName().equals("TALEND_TASK_EXECUTION")) { //$NON-NLS-1$
+                    totalSize--;
+                    continue;
+                }
+
                 ress.add(new LineItem(result.getDate(), result.getWsItemPK().getConceptName(), result.getWsItemPK().getIds()
                         .toArray(new String[0]), result.getTaskId()));
             }
