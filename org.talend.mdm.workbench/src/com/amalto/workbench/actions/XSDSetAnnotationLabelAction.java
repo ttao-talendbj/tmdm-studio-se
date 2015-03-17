@@ -51,6 +51,7 @@ public class XSDSetAnnotationLabelAction extends UndoAction {
         setToolTipText(Messages.XSDSetAnnotationLabelAction_ActionTip);
     }
 
+    @Override
     public IStatus doAction() {
         try {
             // IStructuredSelection selection = (IStructuredSelection)page.getTreeViewer().getSelection();
@@ -61,11 +62,13 @@ public class XSDSetAnnotationLabelAction extends UndoAction {
             if (selection.getFirstElement() instanceof Element) {
                 TreePath tPath = ((TreeSelection) selection).getPaths()[0];
                 for (int i = 0; i < tPath.getSegmentCount(); i++) {
-                    if (tPath.getSegment(i) instanceof XSDAnnotation)
+                    if (tPath.getSegment(i) instanceof XSDAnnotation) {
                         xSDCom = (XSDAnnotation) (tPath.getSegment(i));
+                    }
                 }
-            } else
+            } else {
                 xSDCom = (XSDComponent) selection.getFirstElement();
+            }
             XSDAnnotationsStructure struc = new XSDAnnotationsStructure(xSDCom);
             if (struc.getAnnotation() == null) {
                 throw new RuntimeException(Messages.bind(Messages.XSDSetAnnotationLabelAction_ExceptioInfo, xSDCom.getClass().getName()));
@@ -106,6 +109,7 @@ public class XSDSetAnnotationLabelAction extends UndoAction {
         return Status.OK_STATUS;
     }
 
+    @Override
     public void runWithEvent(Event event) {
         super.runWithEvent(event);
     }

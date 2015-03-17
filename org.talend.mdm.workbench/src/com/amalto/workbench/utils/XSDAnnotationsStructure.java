@@ -29,6 +29,7 @@ import org.eclipse.xsd.XSDComplexTypeDefinition;
 import org.eclipse.xsd.XSDComponent;
 import org.eclipse.xsd.XSDElementDeclaration;
 import org.eclipse.xsd.XSDFactory;
+import org.eclipse.xsd.XSDModelGroup;
 import org.eclipse.xsd.XSDParticle;
 import org.eclipse.xsd.XSDSchema;
 import org.eclipse.xsd.XSDTerm;
@@ -53,6 +54,8 @@ public class XSDAnnotationsStructure {
 
     XSDSchema schema;
     XSDComponent componet;
+
+    private XSDComplexTypeDefinition complexTypeDef;
     /**
      * "Clever" Constructor that finds or creates annotations of an XSDComponent object
      *
@@ -65,7 +68,11 @@ public class XSDAnnotationsStructure {
     protected void inputChanged(Object component) {
         if (component instanceof XSDAnnotation) {
             annotation = (XSDAnnotation) component;
-            declaration = (XSDElementDeclaration) annotation.getContainer();
+            if (annotation.getContainer() instanceof XSDElementDeclaration) {
+                declaration = (XSDElementDeclaration) annotation.getContainer();
+            } else if (annotation.getContainer() instanceof XSDComplexTypeDefinition) {
+                complexTypeDef = (XSDComplexTypeDefinition) annotation.getContainer();
+            }
         }
 
         if (component instanceof XSDElementDeclaration) {
@@ -78,16 +85,27 @@ public class XSDAnnotationsStructure {
             }
         }
         if(component instanceof XSDComplexTypeDefinition){
-        	XSDComplexTypeDefinition def = (XSDComplexTypeDefinition) component;
-        	XSDParticle paticle=(XSDParticle)def.getContent();
-        	componet=paticle.getTerm();
-        	if (def.getAnnotation() == null) {
+        	complexTypeDef = (XSDComplexTypeDefinition) component;
+        	if (complexTypeDef.getAnnotation() == null) {
                 XSDFactory factory = XSDSchemaBuildingTools.getXSDFactory();
                 annotation = factory.createXSDAnnotation();
             } else {
-                annotation = declaration.getAnnotation();
+                annotation = complexTypeDef.getAnnotation();
             }
         }
+        if(component instanceof XSDModelGroup) {
+            XSDModelGroup group = (XSDModelGroup) component;
+            if(group.getContainer().getContainer() instanceof XSDComplexTypeDefinition) {
+                complexTypeDef = (XSDComplexTypeDefinition) group.getContainer().getContainer();
+                if (complexTypeDef.getAnnotation() == null) {
+                    XSDFactory factory = XSDSchemaBuildingTools.getXSDFactory();
+                    annotation = factory.createXSDAnnotation();
+                } else {
+                    annotation = complexTypeDef.getAnnotation();
+                }
+            }
+        }
+        
         if (component instanceof XSDParticle) {
             XSDTerm term = ((XSDParticle) component).getTerm();
             if (term instanceof XSDElementDeclaration) {
@@ -123,8 +141,9 @@ public class XSDAnnotationsStructure {
 
     public String getDocumentation() {
         Element appInfo = getDocumentationElement();
-        if (appInfo == null)
+        if (appInfo == null) {
             return null;
+        }
         return appInfo.getFirstChild().getNodeValue();
     }
 
@@ -150,8 +169,9 @@ public class XSDAnnotationsStructure {
         }
 
         Element documentation = getDocumentationElement();
-        if (documentation == null)
+        if (documentation == null) {
             return addDocumentation(value);
+        }
 
         // change existing one if
         // first make sure the annotation is not brain new and is attached
@@ -197,8 +217,9 @@ public class XSDAnnotationsStructure {
     }
 
     public boolean setLabel(String countryCode, String label) {
-        if (countryCode == null)
+        if (countryCode == null) {
             return false;
+        }
         boolean somethingChanged = setAppInfo("X_Label_" + countryCode.toUpperCase(), label, true);//$NON-NLS-1$
         hasChanged = hasChanged | somethingChanged;
         return somethingChanged;
@@ -244,8 +265,9 @@ public class XSDAnnotationsStructure {
     }
 
     public boolean setDescription(String countryCode, String description) {
-        if (countryCode == null)
+        if (countryCode == null) {
             return false;
+        }
         boolean somethingChanged = setAppInfo("X_Description_" + countryCode.toUpperCase(), description, true);//$NON-NLS-1$
         hasChanged = hasChanged | somethingChanged;
         return somethingChanged;
@@ -312,14 +334,16 @@ public class XSDAnnotationsStructure {
                         XSDElementDeclaration decl = (XSDElementDeclaration) particle.getTerm();
                         if (Util.IsAImporedElement(decl, xsdString)) {
                             XSDTypeDefinition typeDef = decl.getTypeDefinition();
-                            if (Util.IsAImporedElement(typeDef, xsdString))
+                            if (Util.IsAImporedElement(typeDef, xsdString)) {
                                 isImported = true;
+                            }
                         }
                     }
                 } else if (obj instanceof XSDElementDeclaration) {
                     XSDElementDeclaration decl = (XSDElementDeclaration) obj;
-                    if (Util.IsAImporedElement(decl, xsdString))
+                    if (Util.IsAImporedElement(decl, xsdString)) {
                         isImported = true;
+                    }
                 }
 
 
@@ -430,8 +454,9 @@ public class XSDAnnotationsStructure {
             return "true".equals(appInfos.get(key));//$NON-NLS-1$
         }
         //Starting from 5.0 onwards, always resolve FKInfos by default
-        if(log.isDebugEnabled())
+        if(log.isDebugEnabled()) {
             log.debug(Messages.XSDAnnotationsStructure_DebugInfo);
+        }
         return true;
     }
 
@@ -483,14 +508,16 @@ public class XSDAnnotationsStructure {
                                 XSDElementDeclaration decl = (XSDElementDeclaration) particle.getTerm();
                                 if (Util.IsAImporedElement(decl, xsdString)) {
                                     XSDTypeDefinition typeDef = decl.getTypeDefinition();
-                                    if (Util.IsAImporedElement(typeDef, xsdString))
+                                    if (Util.IsAImporedElement(typeDef, xsdString)) {
                                         isImported = true;
+                                    }
                                 }
                             }
                         } else if (obj instanceof XSDElementDeclaration) {
                             XSDElementDeclaration decl = (XSDElementDeclaration) obj;
-                            if (Util.IsAImporedElement(decl, xsdString))
+                            if (Util.IsAImporedElement(decl, xsdString)) {
                                 isImported = true;
+                            }
                         }
                         if (!isImported) {
                             XSDAnnotationsStructure annotion = new XSDAnnotationsStructure((XSDComponent) obj);
@@ -519,8 +546,9 @@ public class XSDAnnotationsStructure {
 
             return setAccessRole(roles, access);
         } else {
-            if (Util.IsAImporedElement(declaration, xsdString))
+            if (Util.IsAImporedElement(declaration, xsdString)) {
                 return false;
+            }
             return setAccessRole(roles, access);
         }
     }
@@ -724,8 +752,9 @@ public class XSDAnnotationsStructure {
         for (Iterator<String> iter = keys.iterator(); iter.hasNext();) {
             String key = iter.next();
             String v = appInfos.get(key);
-            if (v == null || v.trim().length() == 0)
+            if (v == null || v.trim().length() == 0) {
                 continue;
+            }
             targetSystems.put(key, appInfos.get(key));
         }
         return targetSystems;
@@ -777,8 +806,9 @@ public class XSDAnnotationsStructure {
         for (Iterator<String> iter = keys.iterator(); iter.hasNext();) {
             String key = iter.next();
             String v = appInfos.get(key);
-            if (v == null || v.trim().length() == 0)
+            if (v == null || v.trim().length() == 0) {
                 continue;
+            }
             targetSystems.put(key, appInfos.get(key));
         }
         return targetSystems;
@@ -818,8 +848,9 @@ public class XSDAnnotationsStructure {
             String iso = isoIter.next().toUpperCase();
             String prefix = "X_Facet_" + iso;//$NON-NLS-1$
             String infoValue = getAppInfoValue(prefix);
-            if (infoValue != null)
+            if (infoValue != null) {
                 descriptionsMap.put(iso.toLowerCase(), infoValue);
+            }
         }
 
         return descriptionsMap;
@@ -860,8 +891,9 @@ public class XSDAnnotationsStructure {
             String iso = isoIter.next().toUpperCase();
             String prefix = "X_Display_Format_" + iso;//$NON-NLS-1$
             String infoValue = getAppInfoValue(prefix);
-            if (infoValue != null)
+            if (infoValue != null) {
                 descriptionsMap.put(iso.toLowerCase(), infoValue);
+            }
         }
 
         return descriptionsMap;
@@ -892,8 +924,9 @@ public class XSDAnnotationsStructure {
         Element appInfo = null;
         ArrayList<Element> list = new ArrayList<Element>();
         // list.addAll(annotation.getUserInformation());
-        if (annotation == null)
+        if (annotation == null) {
             return null;
+        }
         list.addAll(annotation.getApplicationInformation());
         for (Iterator<Element> iter = list.iterator(); iter.hasNext();) {
             Element ann = iter.next();
@@ -911,8 +944,9 @@ public class XSDAnnotationsStructure {
 
     private String getAppInfoValue(String regex) {
         Element appInfo = getAppInfo(regex);
-        if (appInfo == null)
+        if (appInfo == null) {
             return null;
+        }
         return appInfo.getFirstChild().getNodeValue();
     }
 
@@ -959,12 +993,14 @@ public class XSDAnnotationsStructure {
             return wasRemoved;
         }
 
-        if (!overwrite)
+        if (!overwrite) {
             return addAppInfo(type, value);
+        }
 
         Element ann = getAppInfo(type);
-        if (ann == null)
+        if (ann == null) {
             return addAppInfo(type, value);
+        }
 
         // change existing one if
         // first make sure the annotation is not brain new and is attached
@@ -982,11 +1018,21 @@ public class XSDAnnotationsStructure {
     }
 
     private boolean addAppInfo(String type, String value) {
-        if (declaration == null)
+        // if (declaration == null) {
+        // return true;
+        // }
+        if (declaration != null) {
+            if (declaration.getAnnotation() == null) {
+                declaration.setAnnotation(annotation);
+            }
+        } else if (complexTypeDef != null) {
+            if (complexTypeDef.getAnnotation() == null) {
+                complexTypeDef.setAnnotation(annotation);
+            }
+        } else {
             return true;
-        if (declaration.getAnnotation() == null) {
-            declaration.setAnnotation(annotation);
         }
+
         Element appinfo = annotation.createApplicationInformation(type);
         Node text = appinfo.getOwnerDocument().createTextNode(value);
         appinfo.appendChild(text);
@@ -1000,8 +1046,9 @@ public class XSDAnnotationsStructure {
         list.addAll(annotation.getApplicationInformation());
         list.addAll(annotation.getUserInformation());
 
-        if(componet!=null)
-        	hasChanged = true;
+        if(componet!=null) {
+            hasChanged = true;
+        }
         if (list.size() == 0) {
             // remove the annotation from the declaration
             if (declaration!=null && declaration.getAnnotation() != null) {
