@@ -86,6 +86,7 @@ public class XSDAnnotationsStructure {
         }
         if(component instanceof XSDComplexTypeDefinition){
         	complexTypeDef = (XSDComplexTypeDefinition) component;
+            componet = complexTypeDef;
         	if (complexTypeDef.getAnnotation() == null) {
                 XSDFactory factory = XSDSchemaBuildingTools.getXSDFactory();
                 annotation = factory.createXSDAnnotation();
@@ -1025,7 +1026,7 @@ public class XSDAnnotationsStructure {
             if (declaration.getAnnotation() == null) {
                 declaration.setAnnotation(annotation);
             }
-        } else if (complexTypeDef != null) {
+        } else if (complexTypeDef != null && type.startsWith("X_Label")) { //$NON-NLS-1$
             if (complexTypeDef.getAnnotation() == null) {
                 complexTypeDef.setAnnotation(annotation);
             }
