@@ -341,7 +341,7 @@ public class MDM {
             isoValues.put(iso, value);
         } else {
 
-            Pattern p = Pattern.compile("\\[(\\w+)\\:([^\\[\\]\\:]*?)\\]{1,}"); //$NON-NLS-1$
+            Pattern p = Pattern.compile("\\[(\\w+)\\:([^\\[\\]]*?)\\]{1,}"); //$NON-NLS-1$
             Matcher m = p.matcher(rawValue);
             while (m.find()) {
                 isoValues.put(m.group(1).toUpperCase(), m.group(2));
@@ -428,7 +428,7 @@ public class MDM {
         iso = iso.toUpperCase();
 
         Map<String, String> isoValues = new HashMap<String, String>();
-        Pattern p = Pattern.compile("\\[(\\w+)\\:([^\\[\\]\\:]*?)\\]{1,}"); //$NON-NLS-1$
+        Pattern p = Pattern.compile("\\[(\\w+)\\:([^\\[\\]]*?)\\]{1,}"); //$NON-NLS-1$
         Matcher m = p.matcher(rawValue);
         while (m.find()) {
             isoValues.put(m.group(1).toUpperCase(), m.group(2));
