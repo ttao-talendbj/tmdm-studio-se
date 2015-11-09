@@ -21,6 +21,7 @@
       <import plugin="org.eclipse.xsd"/>
       <import plugin="org.talend.mdm.workbench"/>
       <import plugin="org.junit"/>
+	  <import plugin="org.talend.designer.routines.mdmprovider"/>
    </requires>
 
 
