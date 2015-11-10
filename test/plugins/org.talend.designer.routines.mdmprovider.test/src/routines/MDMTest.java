@@ -13,6 +13,7 @@
 package routines;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
@@ -28,14 +29,33 @@ public class MDMTest {
 
     @Test
     public void testGetLanguageVariant() {
-        String result = mdm.getLanguageVariant("EN", "[EN:example : it doesn t work][FR:exemple : ça ne fonctionne pas]");
-        assertEquals("example : it doesn t work", result);
+        String result1 = mdm.getLanguageVariant("EN", "[EN:US :: Las Angeles][ZH:China : Beijing :]");
+        assertEquals("US :: Las Angeles", result1);
+
+        String result2 = mdm.getLanguageVariant("ZH", "[EN:US :: Las Angeles][ZH:China : Beijing :]");
+        assertEquals("China : Beijing :", result2);
+
+        String result3 = mdm.getLanguageVariant("EN", "[EN:Product&Store][ZH:Product#Store]");
+        assertEquals("Product&Store", result3);
+
+        String result4 = mdm.getLanguageVariant("ZH", "[EN:Product&Store][ZH:Product#Store]");
+        assertEquals("Product#Store", result4);
+
+        String result5 = mdm.getLanguageVariant("FR", "[EN: Las Angeles][ZH: Beijing]");
+        assertNull(result5);
+
+        String result6 = mdm.getLanguageVariant("EN", "[EN Las Angeles][ZH: Beijing]");
+        assertNull(result6);
     }
 
     @Test
     public void testSetLanguageVariant() {
-        String result = mdm.setLanguageVariant("FR", "exemple : ça ne fonctionne pas", "example : it doesn t work", "EN", true);
-        assertEquals("[EN:example : it doesn t work][FR:exemple : ça ne fonctionne pas]", result);
+        String result7 = mdm.setLanguageVariant("FR", "France#French", "China&Chinese", "ZH", true);
+        assertEquals("[FR:France#French][ZH:China&Chinese]", result7);
+
+        String result8 = mdm.setLanguageVariant("FR", "France#French", "England:English", null, true);
+        assertEquals("[EN:England:English][FR:France#French]", result8);
     }
 
 }
+
