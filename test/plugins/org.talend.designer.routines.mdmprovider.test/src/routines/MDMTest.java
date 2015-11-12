@@ -25,35 +25,33 @@ import org.junit.Test;
 @SuppressWarnings("nls")
 public class MDMTest {
 
-    MDM mdm = new MDM();
-
     @Test
     public void testGetLanguageVariant() {
-        String result1 = mdm.getLanguageVariant("EN", "[EN:US :: Las Angeles][ZH:China : Beijing :]");
+        String result1 = MDM.getLanguageVariant("EN", "[EN:US :: Las Angeles][ZH:China : Beijing :]");
         assertEquals("US :: Las Angeles", result1);
 
-        String result2 = mdm.getLanguageVariant("ZH", "[EN:US :: Las Angeles][ZH:China : Beijing :]");
+        String result2 = MDM.getLanguageVariant("ZH", "[EN:US :: Las Angeles][ZH:China : Beijing :]");
         assertEquals("China : Beijing :", result2);
 
-        String result3 = mdm.getLanguageVariant("EN", "[EN:Product&Store][ZH:Product#Store]");
+        String result3 = MDM.getLanguageVariant("EN", "[EN:Product&Store][ZH:Product#Store]");
         assertEquals("Product&Store", result3);
 
-        String result4 = mdm.getLanguageVariant("ZH", "[EN:Product&Store][ZH:Product#Store]");
+        String result4 = MDM.getLanguageVariant("ZH", "[EN:Product&Store][ZH:Product#Store]");
         assertEquals("Product#Store", result4);
 
-        String result5 = mdm.getLanguageVariant("FR", "[EN: Las Angeles][ZH: Beijing]");
+        String result5 = MDM.getLanguageVariant("FR", "[EN: Las Angeles][ZH: Beijing]");
         assertNull(result5);
 
-        String result6 = mdm.getLanguageVariant("EN", "[EN Las Angeles][ZH: Beijing]");
+        String result6 = MDM.getLanguageVariant("EN", "[EN Las Angeles][ZH: Beijing]");
         assertNull(result6);
     }
 
     @Test
     public void testSetLanguageVariant() {
-        String result7 = mdm.setLanguageVariant("FR", "France#French", "China&Chinese", "ZH", true);
+        String result7 = MDM.setLanguageVariant("FR", "France#French", "China&Chinese", "ZH", true);
         assertEquals("[FR:France#French][ZH:China&Chinese]", result7);
 
-        String result8 = mdm.setLanguageVariant("FR", "France#French", "England:English", null, true);
+        String result8 = MDM.setLanguageVariant("FR", "France#French", "England:English", null, true);
         assertEquals("[EN:England:English][FR:France#French]", result8);
     }
 

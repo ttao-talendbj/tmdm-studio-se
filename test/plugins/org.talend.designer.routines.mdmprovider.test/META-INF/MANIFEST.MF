@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.talend.designer.routines.mdmprovider.test
+Bundle-SymbolicName: org.talend.designer.routines.mdmprovider.test
+Bundle-Version: 6.1.1.qualifier
+Fragment-Host: org.talend.designer.routines.mdmprovider;bundle-version="6.1.1.qualifier"
+Require-Bundle: org.eclipse.osgi.services,
+ org.apache.commons.lang
+Bundle-ClassPath: .
+Export-Package: routines

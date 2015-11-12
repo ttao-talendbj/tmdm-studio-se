@@ -7,6 +7,6 @@
     <version>6.1.1-SNAPSHOT</version>
     <relativePath>../../../</relativePath>
   </parent>
-  <artifactId>org.talend.designer.routines.mdmprovider</artifactId>
+  <artifactId>org.talend.designer.routines.mdmprovider.test</artifactId>
   <packaging>eclipse-plugin</packaging>
 </project>
