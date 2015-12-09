@@ -49,6 +49,7 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
@@ -469,8 +470,9 @@ public class XSDEditor extends MultiPageEditorPart implements IServerObjectEdito
             // view). We don't want to be selecting
             // and unselecting things in the source when editing in the source!!
             boolean isSourcePage = false;
-            if (PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage() != null) {
-                IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+            IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+            if (window != null && window.getActivePage() != null) {
+                IWorkbenchPage page = window.getActivePage();
                 if (page.getActivePart() instanceof XSDEditor) {
                     if (getActiveEditor() instanceof StructuredTextEditor) {
                         isSourcePage = true;
