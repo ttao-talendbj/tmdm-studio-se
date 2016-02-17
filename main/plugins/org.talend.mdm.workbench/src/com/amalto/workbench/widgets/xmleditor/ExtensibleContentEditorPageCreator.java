@@ -7,6 +7,6 @@ public abstract class ExtensibleContentEditorPageCreator {
     public ExtensibleContentEditorPageCreator() {
     }
 
-    public abstract ExtensibleContentEditorPage createXMLEditorPage(Composite parent, int style);
+    public abstract ExtensibleContentEditorPage createXMLEditorPage(Composite parent, int style, String plugin);
 
 }

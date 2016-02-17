@@ -771,7 +771,7 @@ public class TransformerMainPage extends AMainPageV2 {
 
         parameterEditor.setPageGroup(pagegroup);
         parameterEditor.addPage(new ExtensibleContentEditorPageDescription(Messages.TransformerMainPage_Source,
-                Integer.MAX_VALUE, new ExtensibleTextContentEditorPageCreator(), false));
+                Integer.MAX_VALUE, new ExtensibleTextContentEditorPageCreator(), false), pagegroup);
 
     }
 

@@ -602,10 +602,10 @@ public class RoutingRuleMainPage extends AMainPageV2 {
 
         if ("callprocess".equals(serviceName)) { //$NON-NLS-1$
             serviceParametersEditor.addPage(new ExtensibleContentEditorPageDescription("Source", Integer.MAX_VALUE,//$NON-NLS-1$
-                    new TriggerCallProcessSourcePageCreator(), false));
+                    new TriggerCallProcessSourcePageCreator(), false), serviceName);
         } else {
             serviceParametersEditor.addPage(new ExtensibleContentEditorPageDescription("Source", Integer.MAX_VALUE,//$NON-NLS-1$
-                    new ExtensibleTextContentEditorPageCreator(), false));
+                    new ExtensibleTextContentEditorPageCreator(), false), serviceName);
         }
     }
 

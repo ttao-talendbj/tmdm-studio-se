@@ -59,7 +59,7 @@ public class ExtensibleContentEditor extends Composite {
 
         List<ExtensibleContentEditorPageDescription> creatorDescriptions = sortCreatorDescriptions(getPageCeatorDescriptions(group));
 
-        createPages(creatorDescriptions);
+        createPages(creatorDescriptions, group);
 
         lastSelectedTabIndex = getDefaultPageIndex(creatorDescriptions);
         tabFolderEditors.setSelection(lastSelectedTabIndex);
@@ -98,17 +98,18 @@ public class ExtensibleContentEditor extends Composite {
         return ((ExtensibleContentEditorPage) control).getContent();
     }
 
-    protected void createPages(List<ExtensibleContentEditorPageDescription> creatorDescriptions) {
+    protected void createPages(List<ExtensibleContentEditorPageDescription> creatorDescriptions, String plugin) {
 
-        for (ExtensibleContentEditorPageDescription eachCreatorDes : creatorDescriptions)
-            addPage(eachCreatorDes);
+        for (ExtensibleContentEditorPageDescription eachCreatorDes : creatorDescriptions) {
+            addPage(eachCreatorDes, plugin);
+        }
     }
 
-    public void addPage(ExtensibleContentEditorPageDescription creatorDescription) {
+    public void addPage(ExtensibleContentEditorPageDescription creatorDescription, String plugin) {
 
         TabItem item = new TabItem(tabFolderEditors, SWT.NONE);
         item.setText(creatorDescription.getLabel());
-        item.setControl(creatorDescription.getCreator().createXMLEditorPage(tabFolderEditors, SWT.NONE));
+        item.setControl(creatorDescription.getCreator().createXMLEditorPage(tabFolderEditors, SWT.NONE, plugin));
 
         item.getControl().setBackground(getDisplay().getSystemColor(SWT.COLOR_WHITE));
 
