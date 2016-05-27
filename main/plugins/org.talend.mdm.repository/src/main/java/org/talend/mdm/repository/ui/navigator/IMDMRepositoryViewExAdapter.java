@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.mdm.repository.ui.navigator;
 
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbenchPart;
 import org.talend.core.model.properties.Item;
 
@@ -28,4 +29,8 @@ public interface IMDMRepositoryViewExAdapter extends IExAdapter<MDMRepositoryVie
     void unregisterWFEditorListener();
 
     Item getItem(IWorkbenchPart part);
+
+    void createBranchPartControl(Composite parent);
+
+    void refreshBranchPartControl();
 }

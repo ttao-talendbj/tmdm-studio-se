@@ -44,6 +44,10 @@ import org.eclipse.jface.viewers.ColumnViewerToolTipSupport;
 import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Tree;
@@ -136,12 +140,30 @@ public class MDMRepositoryView extends CommonNavigator implements ITabbedPropert
 
     @Override
     public void createPartControl(Composite aParent) {
-        super.createPartControl(aParent);
+        Composite mainPane = new Composite(aParent, SWT.NONE);
+        GridLayout layout = new GridLayout();
+        layout.horizontalSpacing = 0;
+        layout.marginWidth = 0;
+        mainPane.setLayout(layout);
+        mainPane.setBackground(Display.getCurrent().getSystemColor(SWT.COLOR_WHITE));
+
+        if (exAdapter != null) {
+            exAdapter.createBranchPartControl(mainPane);
+        }
+
+        Composite repositoryComp = new Composite(mainPane, SWT.NONE);
+        repositoryComp.setLayout(new FillLayout());
+        repositoryComp.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
+        super.createPartControl(repositoryComp);
+
         initInput();
         registerEditorListener();
         contributeToActionBars();
         activateContext();
 
+        if (exAdapter != null) {
+            exAdapter.refreshBranchPartControl();
+        }
         // new added
         regisitPerspectiveBarSelectListener();
     }
@@ -447,6 +469,12 @@ public class MDMRepositoryView extends CommonNavigator implements ITabbedPropert
                         dialog.run();
                     }
                 });
+            }
+
+            if (partRef.getId().equals(MDMRepositoryView.VIEW_ID)) {
+                if (exAdapter != null) {
+                    exAdapter.refreshBranchPartControl();
+                }
             }
         }
 
