@@ -232,8 +232,10 @@ public class MDMRepositoryLabelProvider extends ColumnLabelProvider implements I
     private IMDMSVNProviderService getSvnProviderService() {
         if (svnProviderService == null) {
             try {
-                svnProviderService = (IMDMSVNProviderService) GlobalServiceRegister.getDefault().getService(
-                        IMDMSVNProviderService.class);
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IMDMSVNProviderService.class)) {
+                    svnProviderService = (IMDMSVNProviderService) GlobalServiceRegister.getDefault()
+                            .getService(IMDMSVNProviderService.class);
+                }
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
             }
@@ -245,8 +247,10 @@ public class MDMRepositoryLabelProvider extends ColumnLabelProvider implements I
     private IGITProviderService getGitProviderService() {
         if (gitProviderService == null) {
             try {
-                gitProviderService = (IGITProviderService) GlobalServiceRegister.getDefault().getService(
-                        IGITProviderService.class);
+                if (GlobalServiceRegister.getDefault().isServiceRegistered(IGITProviderService.class)) {
+                    gitProviderService = (IGITProviderService) GlobalServiceRegister.getDefault()
+                            .getService(IGITProviderService.class);
+                }
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
             }
