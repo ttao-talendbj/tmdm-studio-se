@@ -69,17 +69,17 @@ import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
+import org.talend.mdm.webservice.WSRoutingRuleExpression;
+import org.talend.mdm.webservice.WSRoutingRuleOperator;
+import org.talend.mdm.webservice.WSStringPredicate;
+import org.talend.mdm.webservice.WSWhereCondition;
+import org.talend.mdm.webservice.WSWhereOperator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.amalto.workbench.i18n.Messages;
-import com.amalto.workbench.webservices.WSRoutingRuleExpression;
-import com.amalto.workbench.webservices.WSRoutingRuleOperator;
-import com.amalto.workbench.webservices.WSStringPredicate;
-import com.amalto.workbench.webservices.WSWhereCondition;
-import com.amalto.workbench.webservices.WSWhereOperator;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ Util.class })
