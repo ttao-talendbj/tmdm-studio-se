@@ -35,14 +35,14 @@ import org.talend.mdm.repository.model.mdmserverobject.MDMServerObject;
 import org.talend.mdm.repository.ui.preferences.PreferenceConstants;
 import org.talend.mdm.repository.utils.RepositoryResourceUtil;
 import org.talend.mdm.repository.utils.UIUtil;
+import org.talend.mdm.webservice.TMDMService;
+import org.talend.mdm.webservice.WSDigest;
+import org.talend.mdm.webservice.WSDigestKey;
+import org.talend.mdm.webservice.WSLong;
 
 import com.amalto.workbench.exadapter.ExAdapterManager;
 import com.amalto.workbench.models.TreeObject;
 import com.amalto.workbench.utils.PasswordUtil;
-import com.amalto.workbench.webservices.TMDMService;
-import com.amalto.workbench.webservices.WSDigest;
-import com.amalto.workbench.webservices.WSDigestKey;
-import com.amalto.workbench.webservices.WSLong;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ UIUtil.class, PlatformUI.class, ConsistencyService.class, RepositoryWebServiceAdapter.class,
