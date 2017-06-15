@@ -13,9 +13,7 @@ import org.talend.mdm.repository.core.command.deploy.AbstractDeployCommand;
 import org.talend.mdm.repository.model.mdmmetadata.MDMServerDef;
 import org.talend.mdm.repository.model.mdmproperties.MDMServerObjectItem;
 import org.talend.mdm.repository.model.mdmserverobject.MDMServerObject;
-
-import com.amalto.workbench.webservices.TMDMService;
-
+import org.talend.mdm.webservice.TMDMService;
 
 public class AbstractInteractiveHandlerTest {
 
