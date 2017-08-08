@@ -875,7 +875,13 @@ public class Messages extends NLS {
 
     public static String ViewMainPage_Addtions;
 
+    public static String ViewMainPage_ascOrder;
+
     public static String ViewMainPage_BrowseItems;
+
+    public static String ViewMainPage_defaultField;
+
+    public static String ViewMainPage_descOrder;
 
     public static String ViewMainPage_Description;
 
@@ -901,11 +907,17 @@ public class Messages extends NLS {
 
     public static String ViewMainPage_Msg;
 
+    public static String ViewMainPage_noneField;
+
     public static String ViewMainPage_RunResultThroughProcess;
 
     public static String ViewMainPage_SearchableBusinessElements;
 
+    public static String ViewMainPage_selectXPath;
+
     public static String ViewMainPage_test;
+
+    public static String ViewMainPage_titleSelectField;
 
     public static String ViewMainPage_VerifyReport;
 
@@ -1555,6 +1567,10 @@ public class Messages extends NLS {
 
     public static String XSDEditFacetAction_ActionTip;
 
+    public static String XSDEditFacetAction_dateFormat;
+
+    public static String XSDEditFacetAction_dateTimeFormat;
+
     public static String XSDEditFacetAction_DialogTitle1;
 
     public static String XSDEditFacetAction_DialogTitle10;
@@ -1600,6 +1616,8 @@ public class Messages extends NLS {
     public static String XSDEditFacetAction_ErrorMsg1;
 
     public static String XSDEditFacetAction_ErrorMsg2;
+
+    public static String XSDEditFacetAction_timeFormat;
 
     public static String XSDEditFacetAction_Title;
 
