@@ -110,6 +110,7 @@ public class ElementWrapperCommitHandler extends CommitHandler<ElementWrapper> {
             if (newRef != null) {
                 decl.setResolvedElementDeclaration(newRef);
                 decl.setTypeDefinition(null);
+                decl.setAnnotation(null);
                 Element elem = decl.getElement();
                 if (elem.getAttributes().getNamedItem("type") != null) {
                     elem.getAttributes().removeNamedItem("type");//$NON-NLS-1$
