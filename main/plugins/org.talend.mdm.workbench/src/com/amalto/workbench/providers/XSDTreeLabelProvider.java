@@ -371,13 +371,14 @@ public class XSDTreeLabelProvider extends LabelProvider implements ITreePathLabe
             XSDParticle xsdParticle = (XSDParticle) obj;
 
             XSDTerm xsdTerm = xsdParticle.getTerm();
-            if (xsdTerm instanceof XSDElementDeclaration) {
+            XSDParticleContent content = xsdParticle.getContent();
+            if (content instanceof XSDElementDeclaration) {
                 // get Type of Parent Group
                 List<Object> realKeyInfos = Util.getRealKeyInfos(entity, xsdParticle);
                 if (realKeyInfos != null && realKeyInfos.size() > 0) {
                     return ImageCache.getCreatedImage(EImage.PRIMARYKEY.getPath());
                 }
-                if (XSDUtil.hasFKInfo((XSDElementDeclaration) xsdTerm)) {
+                if (XSDUtil.hasFKInfo((XSDElementDeclaration) content)) {
                     return ImageCache.getCreatedImage(EImage.FK_OBJ.getPath());
                 }
 
