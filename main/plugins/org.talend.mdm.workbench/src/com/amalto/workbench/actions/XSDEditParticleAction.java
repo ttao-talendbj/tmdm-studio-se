@@ -171,6 +171,7 @@ public class XSDEditParticleAction extends UndoAction implements SelectionListen
             if (newRef != null) {
                 decl.setResolvedElementDeclaration(newRef);
                 decl.setTypeDefinition(null);
+                decl.setAnnotation(null);
                 Element elem = decl.getElement();
                 if (elem.getAttributes().getNamedItem("type") != null) {
                     elem.getAttributes().removeNamedItem("type");//$NON-NLS-1$
@@ -266,9 +267,11 @@ public class XSDEditParticleAction extends UndoAction implements SelectionListen
     /********************************
      * Listener to input dialog
      */
+    @Override
     public void widgetDefaultSelected(SelectionEvent e) {
     }
 
+    @Override
     public void widgetSelected(SelectionEvent e) {
         if (dialog.getReturnCode() == -1) {
             return; // there was a validation error
